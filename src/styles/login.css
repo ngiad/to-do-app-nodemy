@@ -1,0 +1,31 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.login > form{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.login > form > input {
+    width: 600px;
+    padding: 4px 8px;
+}
+
+
+.login > form > button{
+    background: rgb(87, 146, 169);
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+}

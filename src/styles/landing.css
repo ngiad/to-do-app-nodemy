@@ -1,0 +1,26 @@
+.contener{
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.contener> h1{
+    text-align: center;
+}
+
+.content{
+    display: flex;
+    gap: 30px;
+}
+
+.content > .left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.content img{
+    max-width: 800px;
+    border-radius: 32px;
+}

@@ -1,0 +1,35 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.header > div > ul{
+    list-style: none;
+    display: flex;
+    gap: 12px;
+}
+
+
+.header > div > a,
+.header > div > ul > li > a{
+    text-decoration: none;
+    color: #4b4b4b;
+    padding: 6px 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.header > div > a:hover,
+.header > div > ul > li > a:hover{
+    border-bottom: 2px solid #ccc ;
+}
+
+
+
+.footer{
+    text-align: center;
+}
