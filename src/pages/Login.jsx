@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import api from "../utils/axios"
 import { useNavigate } from 'react-router-dom'
 import "../styles/login.css"
+import { toast } from 'react-toastify'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -27,6 +28,7 @@ const Login = () => {
 
     api.post("auth/local",{password,identifier}).then((res) => {
       if(res.data.jwt){
+        toast.success("Đăng nhập thành công")
         localStorage.setItem("auth",JSON.stringify(res.data))
         navigate('/1')
         setForm({
@@ -36,7 +38,7 @@ const Login = () => {
         setLoading(false)
       } 
     }).catch((err) => {
-      alert(err.message)
+      toast.warning("Đăng nhập thất bại")
       setLoading(false)
     })
   }

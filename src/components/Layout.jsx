@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import "../styles/layout.css"
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 const Layout = ({children}) => {
   return (
@@ -22,6 +25,7 @@ const Layout = ({children}) => {
         <div className='footer'>
             <p>@by : Tran Dai Nghia</p>
         </div>
+        <ToastContainer />
     </div>
   )
 }

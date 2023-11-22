@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../utils/axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Register = () => {
       .then((res) => {
         console.log(res);
         if (res.data.jwt) {
+          toast.success("Đăng kí thành công")
           localStorage.setItem("auth", JSON.stringify(res.data));
           navigate("/1");
           setForm({ email: "", password: "", username: "" });
@@ -35,6 +37,7 @@ const Register = () => {
         }
       })
       .catch((err) => {
+        toast.warning("Đăng kí thất bại")
        alert(err.message)
        setLoading(false)
       });
