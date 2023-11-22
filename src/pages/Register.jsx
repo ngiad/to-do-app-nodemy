@@ -5,10 +5,11 @@ import "../styles/login.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false)
   const [form, setForm] = useState({
     email: "",
     password: "",
-    username : ""
+    username: "",
   });
 
   const handleChangeInput = (e) => {
@@ -17,22 +18,26 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("da vao");
-
+    if(loading) return
+    setLoading(true)
     const { password, email, username } = form;
     if (!password || !email || !username) return;
 
-    api.post("auth/local/register", {  password, email, username })
-    .then((res) => {
-      console.log(res);
-      if (res.data.jwt) {
-        localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate("/1");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    api
+      .post("auth/local/register", { password, email, username })
+      .then((res) => {
+        console.log(res);
+        if (res.data.jwt) {
+          localStorage.setItem("auth", JSON.stringify(res.data));
+          navigate("/1");
+          setForm({ email: "", password: "", username: "" });
+          setLoading(false)
+        }
+      })
+      .catch((err) => {
+       alert(err.message)
+       setLoading(false)
+      });
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pagigate = ({ meta }) => {
+const Pagigate = ({ meta,pagetotal }) => {
   const page = [];
 
   if (meta?.pagination?.pageCount) {
@@ -9,6 +9,7 @@ const Pagigate = ({ meta }) => {
       page.push(index);
     }
   }
+  
 
   return (
     <div>

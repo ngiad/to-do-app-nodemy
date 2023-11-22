@@ -5,6 +5,7 @@ import "../styles/login.css"
 
 const Login = () => {
   const navigate = useNavigate()
+  const [loading,setLoading] = useState(false)
   const [form,setForm] = useState({
     identifier : "",
     password : ""
@@ -17,7 +18,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(loading) return
 
+    setLoading(true)
     const {password,identifier}= form
     if(!password || !identifier) return 
 
@@ -26,7 +29,15 @@ const Login = () => {
       if(res.data.jwt){
         localStorage.setItem("auth",JSON.stringify(res.data))
         navigate('/1')
+        setForm({
+          identifier : "",
+          password : ""
+        })
+        setLoading(false)
       } 
+    }).catch((err) => {
+      alert(err.message)
+      setLoading(false)
     })
   }
 

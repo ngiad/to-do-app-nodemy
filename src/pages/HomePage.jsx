@@ -2,37 +2,62 @@ import React, { useEffect, useState } from "react";
 import api from "../utils/axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Pagigate from "../components/Pagigate";
+import "../styles/create_detail.css";
+import { MdPlaylistAdd } from "react-icons/md";
+import LiTask from "../components/LiTask";
 
 const HomePage = () => {
   const [data, setData] = useState([]);
-  const [meta,setMeta] = useState({})
-  const navigate = useNavigate()
-  const { page }  = useParams()
+  const [meta, setMeta] = useState({});
+  const navigate = useNavigate();
+  const { page } = useParams();
 
   useEffect(() => {
-    if(isNaN(page)) navigate('/1')
+    if (isNaN(page)) navigate("/1");
     api
-      .get("tasks?=&sort[0]=createdAt:desc&pagination[page]="+page)
+      .get("tasks?=&sort[0]=createdAt:desc&pagination[page]=" + page)
       .then((data) => {
         setData(data.data.data);
-        setMeta(data.data.meta)
+        setMeta(data.data.meta);
       });
 
-      return () => setData([])
+    return () => setData([]);
   }, [page]);
 
+  const handleClick = () => {
+    navigate("/create");
+  };
 
-  return <div>
-    <h1>To-do app</h1>
-    <ul>
-    {
-      data.map((item,index) => {
-        return <li key={index}><Link style={{display : "block"}} to={`/todo/${item.id}`}>{item.attributes.title}</Link></li> 
-      })
-    }
-    </ul>
-    <Pagigate meta={meta}></Pagigate>
-  </div>;
+  const RemoveTask = (id) => {
+    setData(data.filter(item=> item.id !== id))
+  }
+
+  return (
+    <div className="contener">
+      <div className="Contenttask">
+        <div className="header">
+          <div className="left">
+            <h1>Task list</h1>
+          </div>
+          <div className="right">
+            <button onClick={handleClick}>
+              <MdPlaylistAdd />
+            </button>
+          </div>
+        </div>
+        <div className="listTask">
+          <ul>
+            {data.map((item, index) => {
+              return (
+                <LiTask RemoveTask={RemoveTask} key={index} item={item} />
+              );
+            })}
+          </ul>
+          <Pagigate meta={meta} pagetotal={page}></Pagigate>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;

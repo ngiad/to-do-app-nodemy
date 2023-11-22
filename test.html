@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        body {
+            /* cursor: auto; */
+            -moz-user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            padding: 12px;
+        }
+
+        li {
+            padding: 20px;
+            background: #ccc;
+            width: 400px;
+            text-align: center;
+            margin: 12px;
+            border-radius: 24px;
+        }
+
+        div {
+            min-height: 380px;
+            color: aliceblue;
+            font-size: 24px;
+
+        }
+
+        .element {
+            padding: 20px;
+            background: #ccc;
+            width: 400px;
+            text-align: center;
+            opacity: 0.4;
+            position: absolute;
+            display: none;
+            border-radius: 24px;
+        }
+
+        .on {
+            display: block;
+            transform: translate(-50%);
+        }
+
+        .content {
+            display: flex;
+            gap: 12px;
+        }
+
+        .content>div {
+            padding: 12px;
+            flex: 1;
+            border-radius: 32px;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .content>div>li {
+            margin: 0 auto;
+            margin: 12px;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh;">
+    <p class="element"></p>
+    <h1>todo app</h1>
+    <form>
+        <label for="todo">new todo</label> <input id="todo" type="text">
+        <button>add</button>
+    </form>
+    <ul id="ul">
+
+    </ul>
+    <div class="content">
+        <div id="red" style="background-color: red; "> </div>
+        <div id="blue" style="background-color: blue; "></div>
+    </div>
+
+
+    <script>
+        localStorage.setItem("xy",JSON.stringify({outerHeight :window.outerHeight ,outerWidth : window.outerWidth }))
+        let interval
+
+        interval = setInterval(() =>{
+            const xy = JSON.parse(localStorage.getItem("xy"))
+            if (xy.outerWidth - window.innerWidth > 300 || xy.outerHeight - window.innerHeight > 300){
+                window.location.reload()
+            } 
+        },100)
+
+
+       
+
+        let arr = ['123456', "nghia123", "nam 23456"]
+        let arrElement = {
+            red: [],
+            blue: []
+        }
+        let check = false
+        let element = ""
+        let cls
+
+        const form = document.querySelector("form")
+        const input = document.querySelector("input")
+        const ul = document.querySelector("ul")
+
+
+
+        function displayUl() {
+            let li = ""
+            arr.map((item) => {
+                li += `<li>${item}</li>`
+            })
+
+            ul.innerHTML = li
+
+            const lis = document.querySelectorAll("li")
+            lis.forEach((item, i) => {
+                item.onmousedown = function () {
+                    if (element) return
+                    cls = ""
+                    element = this.textContent
+                }
+            })
+        }
+        displayUl()
+
+        form.onsubmit = (e) => {
+            e.preventDefault()
+            if (input.value) {
+                arr.push(input.value)
+                input.value = ""
+                displayUl()
+            }
+        }
+
+
+        const renderUiDiv = (id, ar) => {
+            const elementHtml = document.querySelector(`#${id}`)
+            let li = ''
+
+            ar.forEach((item) => {
+                li += `<li class="${id}-li">${item}</li>`
+            })
+            elementHtml.innerHTML = li
+
+            document.querySelectorAll(`#${id} > li`).forEach((item, i) => {
+                item.classList.add(i)
+                item.onmousedown = function () {
+                    if (element) {
+                        console.log("vao if");
+                        return
+                    }
+                    cls = `${id}-li`
+                    element = this.textContent
+                }
+            })
+
+        }
+
+
+
+        window.onmousemove = (e) => {
+            if (element) {
+                document.querySelector('.element').classList.add("on")
+                document.querySelector('.element').style.left = `${e.x}px`
+                document.querySelector('.element').style.top = `${e.y - 100}px`
+                document.querySelector('.element').textContent = element
+            }
+        }
+
+
+        function handleLogic(html, id, add, remove) {
+            if (cls.includes(html.id)) {
+                cls = ""
+                element = ""
+                document.querySelector('.element').classList.remove("on")
+                return
+            }
+            arrElement[add].push(element.trim())
+            arrElement[remove] = arrElement[remove].filter((item) => item !== element.trim())
+            if (arr.find((item) => item.trim() === element.trim())) {
+                arr = arr.filter((item) => item.trim() !== element.trim())
+                displayUl()
+            }
+            cls = ""
+            renderUiDiv(add, arrElement[add])
+            renderUiDiv(remove, arrElement[remove])
+            document.querySelector('.element').classList.remove("on")
+            element = ""
+        }
+
+        window.onmouseup = (e) => {
+            let html = document.elementFromPoint(e.x, e.y)
+            if (html.id === "red" && element) {
+                handleLogic(html, "red", "red", "blue")
+            }
+            if (html.id === "blue" && element) {
+                handleLogic(html, "blue", "blue", "red")
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

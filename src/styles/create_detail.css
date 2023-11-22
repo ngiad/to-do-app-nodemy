@@ -1,0 +1,70 @@
+.contener{
+    padding: 40px;
+}
+
+.Contenttask{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    max-width: calc(100% - 32px);
+    width: 100%;
+    min-height: 600px;
+    margin: 0 auto;
+}
+
+.Contenttask > .header{
+    padding: 12px;
+    border-bottom:  1px solid #ccc;
+}
+
+
+.Contenttask > .header > .right > button {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
+
+
+.listTask > ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.litask{
+    display: flex;
+}
+
+.litask > div{
+    flex: 1;
+}
+
+
+.litask > div:nth-child(3){
+    display: flex;
+    justify-content:flex-end;
+    padding-right: 12px;
+}
+
+.contener input,
+.contener button {
+    cursor: pointer;
+}
+
+
+.Contenttask > .title{
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+.Contenttask > .title h1{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.Contenttask > .form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}

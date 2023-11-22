@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const Private = () => {
   const navigate = useNavigate();
@@ -10,6 +12,10 @@ const Private = () => {
   return (
     <div>
       <Outlet />
+      <div>
+        <p style={{textAlign : "center"}}>@ by : tran dai nghia</p>
+      </div>
+      <ToastContainer />
     </div>
   );
 };
