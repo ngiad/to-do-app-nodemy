@@ -11,11 +11,13 @@ const Pagigate = ({ meta,pagetotal }) => {
   }
   
 
+  console.log(pagetotal);
+
   return (
     <div style={{padding: "24px"}}>
       {page.map((item) => {
         return (
-          <Link style={{ margin: "0 12px",padding: "8px", border : "1px solid #ccc" }} to={`/${item}`} key={item}>
+          <Link className={+pagetotal === item ? "active" : "" } style={{ margin: "0 12px",padding: "8px", border : "1px solid #ccc" }} to={`/${item}`} key={item}>
             {item}
           </Link>
         );

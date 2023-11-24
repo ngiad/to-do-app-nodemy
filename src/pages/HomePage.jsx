@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../utils/axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Pagigate from "../components/Pagigate";
 import "../styles/create_detail.css";
 import { MdPlaylistAdd } from "react-icons/md";
