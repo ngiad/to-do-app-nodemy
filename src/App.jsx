@@ -7,8 +7,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Private from "./components/Private";
 import CreateTask from "./pages/CreateTask";
+import { useState } from "react";
 
 function App() {
+  const [isReRender,setIsRenRender] = useState(false)
+
+  const handleReRender = () => {
+    setIsRenRender(!isReRender)
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -17,9 +23,9 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
         </Route>
-        <Route element={<Private />}>
+        <Route element={<Private handleReRender={handleReRender} />}>
           <Route path='/create'  element={<CreateTask />}></Route>
-          <Route path="/:page" element={<HomePage />}></Route>
+          <Route path="/:page" element={<HomePage handleReRender={handleReRender} isReRender={isReRender} />}></Route>
           <Route path="/todo/:id" element={<DetailTodo />}></Route>
         </Route>
       </Routes>

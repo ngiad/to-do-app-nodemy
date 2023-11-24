@@ -12,7 +12,7 @@ const Pagigate = ({ meta,pagetotal }) => {
   
 
   return (
-    <div>
+    <div style={{padding: "24px"}}>
       {page.map((item) => {
         return (
           <Link style={{ margin: "0 12px",padding: "8px", border : "1px solid #ccc" }} to={`/${item}`} key={item}>
